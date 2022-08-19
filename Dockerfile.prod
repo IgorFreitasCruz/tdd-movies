@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DEBUG 0
 ENV SECRET_KEY foo
-ENV DJANGO_ALLOWED_HOSTS localhost 127.0.0.1 [::1]
+ENV DJANGO_ALLOWED_HOSTS localhost 127.0.0.1 boiling-temple-56799.herokuapp.com
 
 # install system dependencies
 RUN apt-get update \
@@ -23,6 +23,9 @@ RUN pip install -r requirements.txt
 
 # add app
 COPY . .
+
+# collect static files
+RUN python manage.py collectstatic --noinput
 
 # add and run as non-root user
 RUN adduser --disabled-password myuser
